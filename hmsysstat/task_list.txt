@@ -1,0 +1,44 @@
+---To Do---
+
+    Sometime along the way, figure out what would be a good naming convention for my own branches of the hirschmann_shared and linux_eagle,
+    create those branches and switch to them.
+
+---In progress---
+
+    Modify the main Makefile and/or other makefiles in the project to get my target compiled and inserted into the EAGLE build.
+
+    Continued research. (Will most probably remain In Progress during the entire developing process)
+
+---Done---
+
+    Implement the work module. Will consist of 2 threads, one of them will do the actual work of receiving and sending packets, while the other will handle new client connections.
+        - It will also habe a third thread, which will be monitor the CPU usage. It's output will be polled for the CPUINFO packet.
+
+    Choose a way to start the work module from the control module (a new thread? a new process?).
+        - New thread approach choosen
+
+    Implement a communication channel between the SNMP handler (hm2sysstatMIB.c) and the SNMP agent or control module or work module.
+        - Done by including the header of the work module in the SNMP handler source file, thus the getters and setters are being exposed to
+          the handler.
+
+    Configure hm2sysstatMIB.c for proper get and set of the scalars.
+
+    Trim and filter hmctl_templ_skel.c to exactly what I need. Add stuff if necessary. 
+        - Might actually need all of it, at least for now. May be reopened sometime after the first successful build.
+
+    Write the necessary MIB.
+
+    Install mib2c and generate the needed template code for the two scalars.
+
+---Review---
+
+    Figure out if my application would be interested in the system events provided by the ESM.
+        - So far so good. Things are very clear until after the control module reaches the HM_ESM_STATE_RUNNING state. The circumstances
+          and the subsequent actions are unclear in the event that HM_ESN_STATE_RECONF is reached.
+
+    Write and integrate the function that initializes the SNMP agent.
+        - Without the mib2c generated functions at the moment. (init_hm2SampleAppIntVariable(), init_hm2SampleAppOperation(), 
+          init_hm2SampleAppVerbose(), init_hm2SampleAppStatus())
+        - Should be done by the end of the day
+        -- UPDATE: Done
+        --- UPDATE: mib2c template functions done

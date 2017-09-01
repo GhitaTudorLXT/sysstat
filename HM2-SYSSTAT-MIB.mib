@@ -1,0 +1,52 @@
+HM2-SYSSTAT-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    MODULE-IDENTITY, 
+    enterprises,
+    Unsigned32, 
+    Integer32,
+    OBJECT-TYPE
+        FROM SNMPv2-SMI
+;
+
+hm2sysstatMIB MODULE-IDENTITY 
+	LAST-UPDATED "201707281320Z"
+	ORGANIZATION "Luxoft" 
+	CONTACT-INFO 
+		"email: tfghita@luxoft.com 
+		 Ghita Tudor" 
+	DESCRIPTION 
+		"MIB for SYSSTAT" 
+	 
+	REVISION 
+		"201707281321Z" 
+	DESCRIPTION 
+		"Version 1.0" 
+	 
+	::= { hm2PlatformMibs 20 }
+
+hirschmann OBJECT
+IDENTIFIER ::= {enterprises 248}
+
+hm2PlatformMibs OBJECT
+IDENTIFIER ::= {hirschmann 12}
+
+hm2SysstatAppObjects OBJECT IDENTIFIER ::= {hm2sysstatMIB 1}
+
+hm2AgentInfodAdminStatus OBJECT-TYPE
+    SYNTAX Integer32
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Toggles the server listening on and off"
+    ::= {hm2SysstatAppObjects 1}
+
+hm2AgentInfodNoConnections OBJECT-TYPE
+    SYNTAX Unsigned32
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION
+        "Counts how many clients the server has"
+    ::= {hm2SysstatAppObjects 2}
+
+END

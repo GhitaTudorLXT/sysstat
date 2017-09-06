@@ -50,7 +50,7 @@ void agentX()
 
     keep_running = 1;
 
-    while (keep_running)
+    while (getWorkStatus() >= 0)
     {
         agent_check_and_process(1);
     }
